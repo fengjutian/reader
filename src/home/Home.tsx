@@ -2,6 +2,7 @@ import React from 'react';
 import { Layout, Menu } from 'tdesign-react';
 import type { MenuProps } from 'tdesign-react';
 import styles from './home.module.css';
+import CTX from '../ctx/ctx'
 
 const { Content, Footer, Aside } = Layout;
 const { MenuItem } = Menu;
@@ -10,7 +11,7 @@ const Logo = () => <img width="136" src="https://www.tencent.com/img/index/menu_
 
 function BasicUsage(props: MenuProps) {
   return (
-    <Menu style={{ width: '100%', height: '100%', boxShadow: 'none' }} logo={<Logo />} {...props}>
+    <Menu className={styles.menuCtx} logo={<Logo />} {...props}>
       <MenuItem value="1">侧边内容一</MenuItem>
       <MenuItem value="2">侧边内容二</MenuItem>
       <MenuItem value="3">侧边内容三</MenuItem>
@@ -29,7 +30,7 @@ export default function BasicDivider() {
         </Aside>
         <Layout>
           <Content>
-            <div>Content</div>
+            <CTX><div>Content11</div></CTX>
           </Content>
           <Footer>Copyright @ 2019-2020 Tencent. All Rights Reserved</Footer>
         </Layout>
