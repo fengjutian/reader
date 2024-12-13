@@ -2,7 +2,7 @@ import React from 'react';
 import { Layout, Menu } from 'tdesign-react';
 import type { MenuProps } from 'tdesign-react';
 import styles from './home.module.css';
-import CTX from '../ctx/ctx'
+// import CTX from '../ctx/ctx'
 
 const { Content, Footer, Aside } = Layout;
 const { MenuItem } = Menu;
@@ -21,7 +21,9 @@ function BasicUsage(props: MenuProps) {
   );
 }
 
-export default function BasicDivider() {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function BasicDivider(props: { children: any }) {
+  const { children } = props
   return (
     <div className={styles.homeCtx}>
       <Layout>
@@ -30,7 +32,7 @@ export default function BasicDivider() {
         </Aside>
         <Layout>
           <Content>
-            <CTX><div>Content11</div></CTX>
+            {children}
           </Content>
           <Footer>Copyright @ 2019-2020 Tencent. All Rights Reserved</Footer>
         </Layout>

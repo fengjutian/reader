@@ -8,14 +8,15 @@ import BodyIcon from './BodyIcon.tsx';
 import Home from './home/Home.tsx';
 import "@arco-design/web-react/dist/css/arco.css";
 import 'tdesign-react/es/style/index.css';
+import Books from './books/Books.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={ <StrictMode><App /></StrictMode>} />
-      <Route path="/books" element={<AddData/>}/>
+      <Route path="/books" element={<Books/>}/>
       <Route path="/body-icon" element={<BodyIcon/>}/>
-      <Route path="/home" element={<Home/>}/>
+      {/* <Route path="/home" element={<Home/>}/> */}
     </Routes>
   </BrowserRouter>
 )
