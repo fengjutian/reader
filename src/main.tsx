@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import App from './App.tsx';
 import AddData from './addData/Books.tsx';
 import BodyIcon from './BodyIcon.tsx';
-import Home from './home/Home.tsx';
+// import Home from './layout/Layout.tsx';
 import "@arco-design/web-react/dist/css/arco.css";
 import 'tdesign-react/es/style/index.css';
 import Books from './books/Books.tsx'
