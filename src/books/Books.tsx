@@ -5,6 +5,7 @@ import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } f
 import stylescss from './books.module.css';
 import { createStyles } from 'antd-style';
 import BookDetail from './BookDetaily';
+import SaveBook from './SaveBook';
 
 const { FormItem } = Form;
 
@@ -73,7 +74,8 @@ const statusNameListMap = {
 
 const Books = () => {
   const { styles, cx, theme } = useStyles();
-  const [visibleDetaile, setVisibleDetaile] = useState<boolean>(false)
+  const [visibleDetaile, setVisibleDetaile] = useState<boolean>(false);
+  const [visibleSaveBook, setVisibleSaveBook] = useState<boolean>(false);
 
   const showView = (data: React.MouseEvent<HTMLElement, MouseEvent>) => {
     console.log('e', data)
@@ -168,7 +170,7 @@ const Books = () => {
           </Form>
         </Space>
         <Space className={stylescss.operatorWrap}>
-          <Button theme="primary" variant="base">新建</Button>
+          <Button theme="primary" variant="base" onClick={() => setVisibleSaveBook(true)}>新建</Button>
           <Button theme="primary" variant="base">导入</Button>
         </Space>
         {table}
@@ -178,6 +180,10 @@ const Books = () => {
       <BookDetail
         visibleDetaile={visibleDetaile}
         setVisibleDetaile={e => setVisibleDetaile(e)}/>
+      {/* 创建书籍 */}
+      <SaveBook
+        visibleSaveBook={visibleSaveBook}
+        setVisibleSaveBook={e => setVisibleSaveBook(e)} />
     </Layout>
   )
 }

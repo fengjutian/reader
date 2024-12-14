@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import { Dialog, Button } from 'tdesign-react';
 import type { DialogProps } from 'tdesign-react';
 
-export default function SaveBook() {
-  const [visible, setVisible] = useState(false);
-  const handleClick = () => {
-    setVisible(true);
-  };
+export default function SaveBook(props: {
+  visibleSaveBook: boolean,
+  setVisibleSaveBook: (data: boolean) => void
+}) {
+  const { visibleSaveBook, setVisibleSaveBook} = props;
+
   const onConfirm: DialogProps['onConfirm'] = (context) => {
     console.log('点击了确认按钮', context);
-    setVisible(false);
+    setVisibleSaveBook(false)
+    // setVisible(false);
   };
   const onCancel: DialogProps['onCancel'] = (context) => {
     console.log('点击了取消按钮', context);
@@ -25,16 +27,16 @@ export default function SaveBook() {
   };
   const handleClose: DialogProps['onClose'] = (context) => {
     console.log('关闭弹窗，点击关闭按钮、按下ESC、点击蒙层等触发', context);
-    setVisible(false);
+    setVisibleSaveBook(false)
+    // setVisible(false);
   };
+
   return (
     <>
-      {/* <Button theme="primary" onClick={handleClick}>
-        Open Modal
-      </Button> */}
       <Dialog
-        header="Basic Modal"
-        visible={visible}
+        header="添加书籍"
+        visible={visibleSaveBook}
+        width='1200px'
         confirmOnEnter
         onClose={handleClose}
         onConfirm={onConfirm}
