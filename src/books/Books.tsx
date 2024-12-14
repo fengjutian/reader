@@ -1,9 +1,14 @@
 import Layout from '../layout/Layout';
 import React, { useState } from 'react';
-import { Table, Checkbox, Radio, Space, Tag } from 'tdesign-react';
+import { Table, Checkbox, Radio, Space, Tag, Button, Form, Input } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
-import styles from './books.module.css';
+import stylescss from './books.module.css';
 import { createStyles } from 'antd-style';
+import BookDetail from './BookDetaily';
+
+const { FormItem } = Form;
+
+type Layout = 'vertical' | 'inline';
 
 import type { TableProps } from 'tdesign-react';
 
@@ -65,17 +70,23 @@ const statusNameListMap = {
   2: { label: '审批过期', theme: 'warning', icon: <ErrorCircleFilledIcon /> },
 };
 
+
 const Books = () => {
   const { styles, cx, theme } = useStyles();
+  const [visibleDetaile, setVisibleDetaile] = useState<boolean>(false)
+
+  const showView = (data: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    console.log('e', data)
+    setVisibleDetaile(true)
+  }
 
   const table = (
     <Table
       data={data}
       columns={[
-        { colKey: 'applicant', title: '申请人', width: '100' },
         {
-          colKey: 'status',
-          title: '申请状态',
+          colKey: 'name',
+          title: '标题',
           cell: ({ row }) => (
             <Tag
               shape="round"
@@ -87,9 +98,19 @@ const Books = () => {
             </Tag>
           ),
         },
-        { colKey: 'channel', title: '签署方式' },
-        { colKey: 'detail.email', title: '邮箱地址', ellipsis: true },
-        { colKey: 'createTime', title: '申请时间' },
+        { colKey: 'sub_name', title: '副标题', width: 100,},
+        { colKey: 'author', title: '作者', width: 100, ellipsis: true },
+        { colKey: 'publishing_house', title: '出版社' },
+        { colKey: 'year_of_publication', title: '出版时间', width: 120, },
+        { colKey: 'ISBN', title: 'ISBN' },
+        { colKey: 'operator', title: '操作', fixed: 'right', cell: ({ row }) => (
+          <Space>
+            <Button variant="outline" theme="default" onClick={(row) => showView(row)}>查看</Button>
+            <Button theme="primary" variant="base">编辑</Button>
+            <Button theme="danger" variant="outline">删除</Button>
+          </Space>
+          )
+        }
       ]}
       rowKey="index"
       verticalAlign="top"
@@ -128,10 +149,35 @@ const Books = () => {
   );
 
   return (
-    <Layout className={styles.ctxWrap}>
+    <Layout className={stylescss.ctxWrap}>
       <Space direction="vertical">
+        <Space direction="vertical">
+          <Form layout='inline' labelWidth={60} colon={true}>
+            <FormItem label="标题" name="name">
+              <Input />
+            </FormItem>
+            <FormItem label="作者" name="name">
+              <Input />
+            </FormItem>
+            <FormItem label="ISBN" name="password">
+              <Input />
+            </FormItem>
+            <FormItem label="" name="password">
+              <Button theme="primary" variant="base">查询</Button>
+            </FormItem>
+          </Form>
+        </Space>
+        <Space className={stylescss.operatorWrap}>
+          <Button theme="primary" variant="base">新建</Button>
+          <Button theme="primary" variant="base">导入</Button>
+        </Space>
         {table}
       </Space>
+
+      {/* 书籍详情 */}
+      <BookDetail
+        visibleDetaile={visibleDetaile}
+        setVisibleDetaile={e => setVisibleDetaile(e)}/>
     </Layout>
   )
 }

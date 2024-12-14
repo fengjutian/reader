@@ -2,3 +2,8 @@
   padding: 10px;
 
 }
+
+.operatorWrap{
+  display: flex;
+  flex-direction: row;
+}
