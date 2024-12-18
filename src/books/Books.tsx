@@ -1,5 +1,5 @@
 import Layout from '../layout/Layout';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Checkbox, Radio, Space, Tag, Button, Form, Input } from 'tdesign-react';
 import { ErrorCircleFilledIcon, CheckCircleFilledIcon, CloseCircleFilledIcon } from 'tdesign-icons-react';
 import stylescss from './books.module.css';
@@ -76,11 +76,33 @@ const Books = () => {
   const { styles, cx, theme } = useStyles();
   const [visibleDetaile, setVisibleDetaile] = useState<boolean>(false);
   const [visibleSaveBook, setVisibleSaveBook] = useState<boolean>(false);
+  const [booksList, setBooksList] = useState([]);
 
   const showView = (data: React.MouseEvent<HTMLElement, MouseEvent>) => {
     console.log('e', data)
     setVisibleDetaile(true)
   }
+
+  const getBooksListFun = async () => {
+    const response = await fetch('http://127.0.0.1:3000/books?pageNum=2&pageSize=10', 
+      { 
+        method: "GET",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          pageNum: 1,
+          pageSize: 10
+        })
+      })
+
+    console.log('response', response);
+  }
+
+  useEffect(() => {
+    getBooksListFun();
+  }, [])
 
   const table = (
     <Table
