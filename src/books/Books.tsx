@@ -84,20 +84,18 @@ const Books = () => {
   }
 
   const getBooksListFun = async () => {
-    const response = await fetch('http://127.0.0.1:3000/books?pageNum=2&pageSize=10', 
-      { 
-        method: "GET",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          pageNum: 1,
-          pageSize: 10
-        })
-      })
+    const response = await fetch('/api/books?pageNum=1&pageSize=10', 
+    { 
+      method: "GET",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-    console.log('response', response);
+    response.json().then((data: []) => {
+      setBooksList([...data])
+    })
   }
 
   useEffect(() => {
@@ -106,21 +104,11 @@ const Books = () => {
 
   const table = (
     <Table
-      data={data}
+      data={booksList}
       columns={[
         {
           colKey: 'name',
           title: '标题',
-          cell: ({ row }) => (
-            <Tag
-              shape="round"
-              theme={statusNameListMap[row.status].theme}
-              variant="light-outline"
-              icon={statusNameListMap[row.status].icon}
-            >
-              {statusNameListMap[row.status].label}
-            </Tag>
-          ),
         },
         { colKey: 'sub_name', title: '副标题', width: 100,},
         { colKey: 'author', title: '作者', width: 100, ellipsis: true },
