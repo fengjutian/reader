@@ -93,8 +93,13 @@ const Books = () => {
       },
     });
 
-    response.json().then((data: []) => {
-      setBooksList([...data])
+    response.json().then((data:{
+      success: boolean,
+      data: []
+    }) => {
+      if(data.success) {
+        setBooksList([...data.data])
+      }
     })
   }
 
